@@ -1,4 +1,4 @@
-package com.fleet.management.telemetry_ingestion_service.dto;
+package com.fleet.management.common_contracts.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

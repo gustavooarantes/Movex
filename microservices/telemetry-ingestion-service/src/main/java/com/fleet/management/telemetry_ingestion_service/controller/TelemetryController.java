@@ -1,7 +1,7 @@
 package com.fleet.management.telemetry_ingestion_service.controller;
 
 import com.fleet.management.telemetry_ingestion_service.config.RabbitMQConfig;
-import com.fleet.management.telemetry_ingestion_service.dto.TelemetryDataDto;
+import com.fleet.management.common_contracts.dto.TelemetryDataDto;
 import jakarta.validation.Valid;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class TelemetryController {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    @PostMapping("/ingest") // Endpoint para receber telemetria
+    @PostMapping("/ingest")
     public ResponseEntity<String> ingestTelemetry(@Valid @RequestBody TelemetryDataDto telemetryData) {
         rabbitTemplate.convertAndSend(RabbitMQConfig.TELEMETRY_RAW_QUEUE, telemetryData);
         return new ResponseEntity<>("Telemetry received and queued.", HttpStatus.ACCEPTED);
