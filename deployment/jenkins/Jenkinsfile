@@ -1,5 +1,8 @@
+// Movex/deployment/jenkins/Jenkinsfile
+
 pipeline {
     agent any
+
     environment {
         DOCKER_HOST = 'unix:///var/run/docker.sock'
         KUBECONFIG_CONTEXT = 'minikube'
@@ -8,8 +11,8 @@ pipeline {
 
     stages {
         stage('Checkout Source') {
-            steps {lobal credentials -> Add Credentials).
-                git branch: 'main', url: 'https://github.com/gustavooarantes/Movex'
+            steps {
+                git branch: 'main', url: 'https://github.com/gustavooarantes/Movex.git'
             }
         }
 
@@ -32,10 +35,8 @@ pipeline {
                         'notification-service': '8084'
                     ]
 
-                    // Itera sobre cada microsserviço
                     microservices.each { serviceName, servicePort ->
                         dir("microservices/${serviceName}") {
-                            // Constrói a imagem Docker.
                             sh "docker build -t ${env.DOCKER_IMAGE_PREFIX}${serviceName}:latest -f Dockerfile ."
                         }
                     }
@@ -66,9 +67,16 @@ pipeline {
                 }
             }
         }
+
+        stage('Verify Deployment (Optional)') {
+            steps {
+                script {
+                    echo "Validações pós-deploy seriam inclusas aqui."
+                }
+            }
+        }
     }
 
-    // Ações pós-pipeline (sucesso, falha, sempre)
     post {
         always {
             echo 'Pipeline finished.'
