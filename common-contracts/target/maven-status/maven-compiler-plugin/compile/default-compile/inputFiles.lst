@@ -1,1 +1,5 @@
+/home/gustavo/Projetos/Movex/common-contracts/src/main/java/com/fleet/management/common_contracts/dto/VehicleDto.java
+/home/gustavo/Projetos/Movex/common-contracts/src/main/java/com/fleet/management/common_contracts/dto/LocationDto.java
+/home/gustavo/Projetos/Movex/common-contracts/src/main/java/com/fleet/management/common_contracts/dto/OptimizationRequestDto.java
+/home/gustavo/Projetos/Movex/common-contracts/src/main/java/com/fleet/management/common_contracts/dto/OptimizationResultDto.java
 /home/gustavo/Projetos/Movex/common-contracts/src/main/java/com/fleet/management/common_contracts/dto/TelemetryDataDto.java

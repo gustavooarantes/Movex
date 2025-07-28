@@ -1,6 +1,6 @@
 package com.fleet.management.route_optimization_service.client;
 
-import com.fleet.management.route_optimization_service.dto.VehicleDto;
+import com.fleet.management.common_contracts.dto.VehicleDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -2,10 +2,10 @@ package com.fleet.management.route_optimization_service.service;
 
 import com.fleet.management.route_optimization_service.client.FleetManagementServiceClient;
 import com.fleet.management.route_optimization_service.config.RabbitMQConfig;
-import com.fleet.management.route_optimization_service.dto.LocationDto;
-import com.fleet.management.route_optimization_service.dto.OptimizationRequestDto;
-import com.fleet.management.route_optimization_service.dto.OptimizationResultDto;
-import com.fleet.management.route_optimization_service.dto.VehicleDto;
+import com.fleet.management.common_contracts.dto.LocationDto;
+import com.fleet.management.common_contracts.dto.OptimizationRequestDto;
+import com.fleet.management.common_contracts.dto.OptimizationResultDto;
+import com.fleet.management.common_contracts.dto.VehicleDto;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 

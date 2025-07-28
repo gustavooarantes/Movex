@@ -1,7 +1,7 @@
 package com.fleet.management.route_optimization_service.controller;
 
-import com.fleet.management.route_optimization_service.dto.OptimizationRequestDto;
-import com.fleet.management.route_optimization_service.dto.OptimizationResultDto;
+import com.fleet.management.common_contracts.dto.OptimizationRequestDto;
+import com.fleet.management.common_contracts.dto.OptimizationResultDto;
 import com.fleet.management.route_optimization_service.service.RouteOptimizationService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

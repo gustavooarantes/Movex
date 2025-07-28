@@ -1,4 +1,4 @@
-package com.fleet.management.route_optimization_service.dto;
+package com.fleet.management.common_contracts.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
