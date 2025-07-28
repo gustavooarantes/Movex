@@ -1,0 +1,83 @@
+pipeline {
+    agent any
+    environment {
+        DOCKER_HOST = 'unix:///var/run/docker.sock'
+        KUBECONFIG_CONTEXT = 'minikube'
+        DOCKER_IMAGE_PREFIX = ''
+    }
+
+    stages {
+        stage('Checkout Source') {
+            steps {lobal credentials -> Add Credentials).
+                git branch: 'main', url: 'https://github.com/gustavooarantes/Movex'
+            }
+        }
+
+        stage('Build All Microservices') {
+            steps {
+                script {
+                    sh 'mvn clean package -DskipTests'
+                }
+            }
+        }
+
+        stage('Build Docker Images') {
+            steps {
+                script {
+                    def microservices = [
+                        'fleet-management-service': '8080',
+                        'telemetry-ingestion-service': '8081',
+                        'telemetry-processing-alert-service': '8082',
+                        'route-optimization-service': '8083',
+                        'notification-service': '8084'
+                    ]
+
+                    // Itera sobre cada microsserviço
+                    microservices.each { serviceName, servicePort ->
+                        dir("microservices/${serviceName}") {
+                            // Constrói a imagem Docker.
+                            sh "docker build -t ${env.DOCKER_IMAGE_PREFIX}${serviceName}:latest -f Dockerfile ."
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Minikube') {
+            steps {
+                script {
+                    sh 'kubectl config use-context minikube'
+
+                    def microservices = [
+                        'fleet-management-service',
+                        'telemetry-ingestion-service',
+                        'telemetry-processing-alert-service',
+                        'route-optimization-service',
+                        'notification-service'
+                    ]
+
+                    microservices.each { serviceName ->
+                        dir("microservices/${serviceName}/k8s") {
+                            sh "kubectl apply -f ."
+                        }
+                    }
+                    sh 'kubectl get pods'
+                    sh 'kubectl get svc'
+                }
+            }
+        }
+    }
+
+    // Ações pós-pipeline (sucesso, falha, sempre)
+    post {
+        always {
+            echo 'Pipeline finished.'
+        }
+        failure {
+            echo 'Pipeline failed! Check the console output for errors.'
+        }
+        success {
+            echo 'Pipeline succeeded!'
+        }
+    }
+}
