@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: route-optimization-service-deployment
+  labels:
+    app: route-optimization-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: route-optimization-service
+  template:
+    metadata:
+      labels:
+        app: route-optimization-service
+    spec:
+      containers:
+        - name: route-optimization-service
+          image: route-optimization-service:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8083
+          env:
+            - name: SPRING_RABBITMQ_HOST
+              value: "rabbitmq"
+            - name: SPRING_RABBITMQ_PORT
+              value: "5672"
+            - name: SPRING_RABBITMQ_USERNAME
+              value: "guest"
+            - name: SPRING_RABBITMQ_PASSWORD
+              value: "guest"
+            - name: FLEET_MANAGEMENT_SERVICE_URL
+              value: "http://fleet-management-service:8080"
+            - name: SERVER_PORT
+              value: "8083"
+            - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+              value: "*"

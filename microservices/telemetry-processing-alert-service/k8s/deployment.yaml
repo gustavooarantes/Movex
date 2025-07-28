@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telemetry-processing-alert-service-deployment
+  labels:
+    app: telemetry-processing-alert-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: telemetry-processing-alert-service
+  template:
+    metadata:
+      labels:
+        app: telemetry-processing-alert-service
+    spec:
+      containers:
+        - name: telemetry-processing-alert-service
+          image: telemetry-processing-alert-service:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8082
+          env:
+            - name: SPRING_RABBITMQ_HOST
+              value: "rabbitmq"
+            - name: SPRING_RABBITMQ_PORT
+              value: "5672"
+            - name: SPRING_RABBITMQ_USERNAME
+              value: "guest"
+            - name: SPRING_RABBITMQ_PASSWORD
+              value: "guest"
+            - name: SPRING_DATA_MONGODB_HOST
+              value: "mongodb"
+            - name: SPRING_DATA_MONGODB_PORT
+              value: "27017"
+            - name: SPRING_DATA_MONGODB_DATABASE
+              value: "telemetry_db"
+            - name: SERVER_PORT
+              value: "8082"
+            - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+              value: "*"

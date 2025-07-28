@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: telemetry-ingestion-service
+  labels:
+    app: telemetry-ingestion-service
+spec:
+  selector:
+    app: telemetry-ingestion-service
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+  type: NodePort

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: route-optimization-service
+  labels:
+    app: route-optimization-service
+spec:
+  selector:
+    app: route-optimization-service
+  ports:
+    - protocol: TCP
+      port: 8083
+      targetPort: 8083
+  type: NodePort

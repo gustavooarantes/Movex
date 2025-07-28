@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fleet-management-service-deployment
+  labels:
+    app: fleet-management-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fleet-management-service
+  template:
+    metadata:
+      labels:
+        app: fleet-management-service
+    spec:
+      containers:
+        - name: fleet-management-service
+          image: fleet-management-service:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://postgres:5432/fleet_db"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "admin"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "password"
+            - name: SERVER_PORT
+              value: "8080"
+            - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+              value: "*"
