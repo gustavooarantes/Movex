@@ -16,6 +16,14 @@ pipeline {
             }
         }
 
+        stage('Setup Environment') {
+              steps {
+                  script {
+                      sh 'apt-get update && apt-get install -y maven'
+                  }
+              }
+        }
+
         stage('Build All Microservices') {
             steps {
                 script {
