@@ -24,6 +24,7 @@
         <module>microservices/fleet-management-service</module>
         <module>microservices/telemetry-ingestion-service</module>
         <module>microservices/telemetry-processing-alert-service</module>
+        <module>microservices/route-optimization-service</module>
     </modules>
 
     <build>
